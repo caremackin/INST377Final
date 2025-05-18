@@ -78,7 +78,7 @@ var houses = []
 
  //REQUIREMENT: write to database using api call
  function addHouse(type, bedrooms, bathrooms, address, img_src) {
-  fetch("http://localhost:3000/supabase/add", {
+  fetch("/supabase/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -100,7 +100,7 @@ var houses = []
 }
  //REQUIREMENT: get data from database using api call
  function getHouses(type, bedrooms, bathrooms, address, img_src) {
-    fetch("http://localhost:3000/supabase")
+    fetch("/supabase")
     .then((res) => res.json())
     .then((data) => {;
         houses = data;
