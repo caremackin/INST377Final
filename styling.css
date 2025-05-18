@@ -1,0 +1,95 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; 
+}
+
+nav p{
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+nav a:hover {
+    color: gray;
+}
+
+.aboutimg{
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+#houseslider img {
+    width: 100%;
+    filter: blur(5px); 
+    height: auto;
+}
+
+#title {
+    position: absolute;
+    top: 50%;
+    left: 32%;
+    z-index: 10;
+    color: white;
+    font-size: 100px;
+    margin: 0;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+
+#aboutTitle {
+    text-align: center;
+    margin-top: 20px;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#aboutSection {
+    width: 800px;
+    margin: auto;
+    text-align: center;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#formtitle{
+    text-align: center;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.formdiv {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 600px;
+    margin: auto;
+    background: #cecece;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.grid-item {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+
+.grid-item img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+#housetable {
+    margin: 40px auto;
+    border-collapse: collapse;
+    width: 80%;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #cecece;
+    border-radius: 8px;
+}
+
+
+

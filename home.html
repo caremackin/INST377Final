@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="styling.css">
+<head>
+
+</head>
+<nav>
+        <p><a href="home.html">Home</a></p>
+        <p><a href="about.html">About</a></p>
+        <p><a href="main.html">Advertise Home</a></p>
+</div>
+</nav>
+<body onload="loadHouses()">
+    <!--REQUIREMENT: Javascript library 1 -->
+    <div id = "houseslider" data-simple-slider></div>
+    <h1 id="title">Sale By You</h1>
+    
+</body>
+<footer>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
+<script>
+
+function loadHouses(){
+    const housePics = document.getElementById('houseslider');
+    const img1 = document.createElement('img');
+    img1.src = "assets/house2.jpg";
+    const img2 = document.createElement('img');
+    img2.src = "assets/house3.jpg";
+    const img3 = document.createElement('img');
+    img3.src = "assets/house4.jpg";
+    housePics.append(img1)
+    housePics.append(img2)
+    housePics.append(img3)
+    simpleslider.getSlider();
+    housePics.style.width ='100%';
+    housePics.style.height = '800px';
+}
+</script>

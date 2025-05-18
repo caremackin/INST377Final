@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="styling.css">
+<head>
+    
+</head>
+<nav>
+        <p><a href="home.html">Home</a></p>
+        <p><a href="about.html">About</a></p>
+        <p><a href="main.html">Advertise Home</a></p>
+</nav>
+<body onload="getHouses()">
+    <div>
+        <h2 id="formtitle">House Information Form</h2>
+        <form  id="houseForm">
+            <div class="formdiv">
+                <label for="type">Style:</label>
+                <select id="type" name="type">
+                    <option value="Ranch">Ranch</option>
+                    <option value="SingleF amily">Single Family</option>
+                    <option value="Colonial">Colonial</option>
+                    <option value="Modern">Modern</option>
+                    <option value="Cape Cod"> Cape Cod</option>
+                  </select>
+                <label for="bedrooms">Bedrooms:</label>
+                <input class="bedrooms" type="number" id="bedrooms" name="bedrooms" required>
+                <label for="bathrooms">Bathrooms:</label>
+                <input type="number" id="bathrooms" name="bathrooms" min="0" step="0.5" required>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+                <label for="image">House Img URL:</label>
+                <input type="text" id="image" name="image" required>
+                <button class="btn" type="submit" value="Submit">Submit</button>
+            </div>
+          </form>
+    </div>
+
+    <table id="housetable" #housetable>
+        <tr>
+            <th>Id</th>
+            <th>Style</th>
+            <th>Beds</th>
+            <th>Baths</th>
+            <th>Address</th>
+            <th>Post</th> 
+          </tr>
+    </table>
+
+
+    <!-- REQUIREMENT: Javascript library 2 -->
+    <div id="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'></div>
+</body>
+<footer>
+</footer>
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script>
+const API_KEY = "1940A0B8-DD1A4123-B5B2A41D-91E30499";
+var houses = []
+
+
+ document.getElementById("houseForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    const style = document.getElementById("type").value;
+    const bedrooms = document.getElementById("bedrooms").value;
+    const bathrooms = document.getElementById("bathrooms").value;
+    const address = document.getElementById("address").value;
+    const img_src = document.getElementById("image").value;
+
+    console.log("Style:", style);
+    console.log("Bedrooms:", bedrooms);
+    console.log("Bathrooms:", bathrooms);
+    console.log("Address:", address);
+    console.log("Image URL:", img_src);
+
+    addHouse(style, bedrooms, bathrooms, address, img_src) ;
+ })
+
+ //REQUIREMENT: write to database using api call
+ function addHouse(type, bedrooms, bathrooms, address, img_src) {
+  fetch("http://localhost:3000/supabase/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      type: type,
+      bedrooms: bedrooms,
+      bathrooms: bathrooms,
+      address: address,
+      img_src: img_src,
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log("House added:", json);
+      getHouses();
+    })
+    .catch((err) => console.error("Error adding house:", err));
+}
+ //REQUIREMENT: get data from database using api call
+ function getHouses(type, bedrooms, bathrooms, address, img_src) {
+    fetch("http://localhost:3000/supabase")
+    .then((res) => res.json())
+    .then((data) => {;
+        houses = data;
+        populateTable(houses);
+        const grid = document.getElementById("grid");
+
+        houses.forEach((house) => {
+            const gridItem = document.createElement("div");
+            gridItem.className = "grid-item";
+            const img = document.createElement("img");
+            img.src = house.img_src;
+            img.alt = `${house.type} house`;
+            gridItem.appendChild(img);
+            grid.appendChild(gridItem);
+        })
+        var msnry = new Masonry(grid, {
+            itemSelector: '.grid-item',
+            columnWidth: 200
+        });
+    })
+    .catch((err) => console.error("Fetch error:", err));
+ }
+
+//REQUIREMENT: Fetch API call 1
+ function postToTwitterX(type, bedrooms, bathrooms, address, img_src) {
+    fetch("https://api.ayrshare.com/api/post", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+            "post": `Beautiful ${type} home for sale, located at ${address}. Featuring ${bedrooms} bedrooms and ${bathrooms} baths`,
+            "platforms": ["twitter"],
+            "mediaUrls": [img_src],
+            "title": `${type} Home For Sale`
+        }),
+        })
+        .then((res) => res.json())
+        .then((json) => console.log(json))
+        .catch(console.error);
+    }
+
+    //REQUIREMENT: Fetch API call 2
+    function postToBlueSky(type, bedrooms, bathrooms, address, img_src) {
+    fetch("https://api.ayrshare.com/api/post", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+            "post": `Beautiful ${type} home for sale, located at ${address}. Featuring ${bedrooms} bedrooms and ${bathrooms} baths`,
+            "platforms": ["bluesky"],
+            "mediaUrls": [img_src],
+            "title": `${type} Home For Sale`
+        }),
+        })
+        .then((res) => res.json())
+        .then((json) => console.log(json))
+        .catch(console.error);
+    }
+
+    //REQUIREMENT: Fetch API call 3
+    function postToPinterest(type, bedrooms, bathrooms, address, img_src) {
+    fetch("https://api.ayrshare.com/api/post", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+            "post": `Beautiful ${type} home for sale, located at ${address}. Featuring ${bedrooms} bedrooms and ${bathrooms} baths`,
+            "platforms": ["pinterest"],
+            "mediaUrls": [img_src],
+            "title": `${type} Home For Sale`
+        }),
+        })
+        .then((res) => res.json())
+        .then((json) => console.log(json))
+        .catch(console.error);
+    }
+
+    function makeAllPosts(type, bedrooms, bathrooms, address, img_src) {
+        postToTwitterX(type, bedrooms, bathrooms, address, img_src);
+        postToBlueSky(type, bedrooms, bathrooms, address, img_src);
+        postToPinterest(type, bedrooms, bathrooms, address, img_src);
+    }
+
+    function populateTable(data){
+        console.log(data)
+        tbl = document.getElementById('housetable');
+            for (let i = tbl.rows.length - 1; i > 0; i--) {
+                tbl.deleteRow(i);
+            }
+            for (let i = 0; i < data.length; i++) {
+                const tr = tbl.insertRow();
+                const td1 = tr.insertCell();
+                td1.textContent = data[i].id
+                const td2 = tr.insertCell();
+                td2.textContent = data[i].type
+                const td3 = tr.insertCell();
+                td3.textContent = data[i].bedrooms
+                const td4 = tr.insertCell();
+                td4.textContent = data[i].bathrooms
+                const td5 = tr.insertCell();
+                td5.textContent = data[i].address
+                const td6 = tr.insertCell();
+                td6.innerHTML = `<button onclick="makeAllPosts('${data[i].type}', ${data[i].bedrooms}, ${data[i].bathrooms}, '${data[i].address}', '${data[i].img_src}')">Post</button>`;
+            }
+    }
+</script>
