@@ -55,5 +55,5 @@ See the [Developer Manual](#developer-manual) for more information.
 
 ### Goals/Concept For Future Development
 
-1. Allow user to login and only show them houses that they listed, should not be able to post other houses in the database
-2. Seperate an admin side to review listing before allowing them to be posted to social media
+1. Allow user to login and only display houses that they listed, users should not be able to post other houses in the database
+2. Seperate an admin side to review listings before allowing them to be posted to social media
