@@ -41,11 +41,11 @@ See the [Developer Manual](#developer-manual) for more information.
 
   ```json
   {
-    "type": "House",
+    "type": "ranch",
     "bedrooms": 3,
-    "bathrooms": 2,
-    "address": "123 Main St",
-    "img_src": "https://example.com/image.jpg"
+    "bathrooms": 1.5,
+    "address": "123 Blueberry St",
+    "img_src": "https://housepics.com/123Blueberry.jpg"
   }
   ```
 
